@@ -7,7 +7,7 @@ import mysql.connector
 
 mydb = mysql.connector.connect(
     host="127.0.0.1",
-    user="3306",
+    user="root",
     password="Malaz122",
     database="supplier_inventory"
 )
@@ -62,8 +62,9 @@ def remove_supplier():
     
     # Remember when we choosed %s now we make use of it and replace it by our supplier id.
     # I didn't know about the "," at the end but found that execute handled as tuple.
+    mycursor.execute("DELETE FROM Purchase WHERE supplier_id = %s", (supplier_id,))
     mycursor.execute("DELETE FROM Supplier WHERE supplier_id = %s", (supplier_id,))
-    
+
     mydb.commit()
     
     # Now we check if there were any suppliers rows that got deleted (NEED A BETTER CODE)
